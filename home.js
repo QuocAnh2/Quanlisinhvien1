@@ -28,14 +28,10 @@ function closePopup() {
 }
 
 function showStudentManagement() {
-    // Hiển thị bảng và các nút quản lý
-    const buttonContainer = document.querySelector('.button');
-    const buttonFind = document.querySelector('.find');
-    const studentTable = document.getElementById('student-table');
-
-    buttonContainer.style.display = 'flex';
-    buttonFind.style.display = 'none';
-    studentTable.style.display = 'block';
+    // Ẩn phần tìm kiếm và hiển thị các nút Thêm, Sửa, Xóa
+    document.getElementById('findSection').classList.add('hidden');
+    document.getElementById('actionButtons').classList.remove('hidden');
+    document.getElementById('student-table').classList.remove('hidden');
 }
 
 function addStudent() {
@@ -55,6 +51,21 @@ function searchStudent() {
     alert(`Tìm kiếm sinh viên với từ khóa: ${searchValue}`);
 }
 
+// JavaScript để hiển thị các nút "Thêm sinh viên", "Sửa sinh viên", "Xóa sinh viên"
+document.addEventListener('DOMContentLoaded', function () {
+    const manageStudentLink = document.querySelector('.menu-text'); // Đối tượng "Quản lý sinh viên"
+    const buttonContainer = document.querySelector('.button'); // Đối tượng chứa các nút Thêm, Sửa, Xóa
+    const buttonFind = document.querySelector('.find'); // Đối tượng chứa nút tìm kiếm
+
+    // Lắng nghe sự kiện click vào "Quản lý sinh viên"
+    manageStudentLink.addEventListener('click', function () {
+        // Chuyển display của nút thành block khi nhấn vào "Quản lý sinh viên"
+        if (buttonContainer.style.display === 'none' || buttonContainer.style.display === '') {
+            buttonContainer.style.display = 'flex';
+            buttonFind.style.display = 'none';
+        }
+    });
+});
 function toggleDarkMode() {
     // Chuyển đổi lớp "dark-mode" cho thẻ body
     document.body.classList.toggle('dark-mode');
@@ -65,4 +76,12 @@ function toggleDarkMode() {
 
     sidebar.classList.toggle('dark-mode');
     table.classList.toggle('dark-mode');
+
+    // Cập nhật văn bản của nút
+    const button = document.getElementById('darkModeButton');
+    if (document.body.classList.contains('dark-mode')) {
+        button.textContent = 'Tắt Dark Mode';
+    } else {
+        button.textContent = 'Bật Dark Mode';
+    }
 }
